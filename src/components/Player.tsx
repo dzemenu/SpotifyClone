@@ -1,17 +1,20 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
-import { tracks } from '../../assets/data/tracks'
 import { Ionicons } from '@expo/vector-icons'
-const track =tracks[0]
+import { usePlayerContext } from '../providers/PlayerProvider'
 const Player = () => {
-    const image=track.album?.images?.[0]
+    const {track}=usePlayerContext()
+    if(!track)
+    return null
+    const image=track?.album?.images?.[0]
+
   return (
     <View style={styles.container}>
         <View style={styles.player}>
        {image && <Image source={{uri:image.url}} style={styles.image}/>}
        <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{track.name}</Text>
-          <Text style={styles.subtitle}>{track.artists[0]?.name}</Text>
+          <Text style={styles.title}>{track?.name}</Text>
+          <Text style={styles.subtitle}>{track?.artists[0]?.name}</Text>
         </View>
 
         <Ionicons
